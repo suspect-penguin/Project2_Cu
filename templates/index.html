@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проверка погодных условий</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script>
+      function togglePreferences() {
+        const preferences = document.querySelector(".preferences-container");
+        preferences.classList.toggle("active");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Проверка погодных условий</h1>
+      <p class="subtitle">Введите данные и проверьте комфортность погоды</p>
+      <form action="{{ url_for('check_weather') }}" method="POST" class="weather-form">
+        <div class="form-group">
+          <label for="start_city">Начальный город:</label>
+          <input type="text" name="start_city" id="start_city" placeholder="Введите город" required />
+        </div>
+        <div class="form-group">
+          <label for="end_city">Конечный город:</label>
+          <input type="text" name="end_city" id="end_city" placeholder="Введите город" required />
+        </div>
+
+        <!-- Надпись для пожеланий -->
+        <div class="preferences-label" onclick="togglePreferences()">
+          <p>Ваши пожелания</p>
+        </div>
+        <p class="preferences-info">Здесь вы можете оставить свои пожелания:</p>
+
+        <div class="preferences-container">
+          <div class="form-group">
+            <label for="temperature">Температура (°C):</label>
+            <input
+              type="number"
+              name="temperature"
+              id="temperature"
+              step="0.1"
+              placeholder="любая"
+            />
+          </div>
+          <div class="form-group">
+            <label for="humidity">Влажность (%):</label>
+            <input
+              type="number"
+              name="humidity"
+              id="humidity"
+              step="1"
+              min="0"
+              max="100"
+              placeholder="от 0 до 100"
+            />
+          </div>
+          <div class="form-group">
+            <label for="wind_speed">Скорость ветра (м/с):</label>
+            <input
+              type="number"
+              name="wind_speed"
+              id="wind_speed"
+              step="0.1"
+              min="0"
+              placeholder="от 0"
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Проверить погоду</button>
+      </form>
+    </div>
+  </body>
+</html>
